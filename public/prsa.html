@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+    <head>
+        <style>
+            p{
+                font-family:cursive;
+            }
+            h1,h2,h3{
+                font-family:impact;
+
+            }
+            .question{
+                border-radius:10%;
+                border:1px solid black;
+                margin: 30px 0 0 5%;
+            }
+            .ans{
+               border-radius:20%;
+                border:1px solid black;
+                margin: 30px 0 0 5%;
+                padding: 20px;
+            }
+            .circle {
+            	display: inline-block;
+	            margin-left: 5px;
+	            height:100px;
+	            width:100px;
+	            border-radius:100%;
+	            border: 2px solid black;
+                text-align:center;
+                color:red;
+            }
+           #button {
+                padding: 15px 25px;
+                font-size: 24px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: #fff;
+                background-color: #4CAF50;
+                border: none;
+                border-radius: 15px;
+                box-shadow: 0 9px #999;
+            }
+
+            #button:hover {background-color: #3e8e41}
+
+            #button:active {
+                background-color: #3e8e41;
+                box-shadow: 0 5px #666;
+                transform: translateY(4px);
+            }
+        </style>
+        <title>Answer to question</title>
+        <script type="text/javascript" src = "js/jquery.min.js"></script>
+        <script type="text/javascript">
+        $(document).ready(function(){
+            populate();
+});
+  function populate(){
+    $.ajax({
+  url: "http://localhost:2311/loaddata/",
+  dataType: "jsonp",
+  jsonpCallback: 'pop',
+  type:'GET'
+});
+  }
+
+  function pop(data){
+    var str="";
+    $('#q').html(data.ques);
+    for(var i=0;i<data.ans.length;i++){
+        str+='<div class="ans" style="width:800px;background-color:#ECCEff;"><h2>Answer '+(i+1)+'</h2><p>'+data.ans[i].a+'</p><p>Answered By '+data.ans[i].user+'</p></div>';
+    }
+    $('#mainc').html(str);
+}
+
+function s2(){
+    var ans=$('#response').val();
+    var user =$('#user').val();
+$.ajax({
+  url: "http://localhost:2311/postdata/"+ans+"/"+user,
+  dataType: "jsonp",
+  jsonpCallback: 'popit',
+  type:'GET'
+});
+
+}
+
+function popit(data){
+location.reload();
+}
+        </script>
+    </head>
+    <body style="background-color:#FFFF00">
+        <marquee><div class="circle"><h1>Q</h1></div> &nbsp
+        <div class="circle"><h1>&</h1></div>
+        <div class="circle"><h1>A</h1></div></marquee>
+        <div class="question" style=width:800px;background-color:#CCCCCC;>
+        <h1>Question</h1>
+        <p id="q">What are the best ways to improve intelligence</p>
+        </div>
+        <br>
+        <div id="mainc">
+
+        </div>
+        <div>
+            <h3>Please enter your answer</h3>
+            <textarea id="response" style="height:200px;width:800px;"></textarea>
+            <h6>Please enter your name</h6>
+            <input type="text" id="user">
+        </div>
+
+        <button id="button" onclick="s2();">Submit</button>
+    </body>
+</html>

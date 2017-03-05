@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title> Trade Off</title>
+
+<script type="text/javascript" src="js/jquery.min.js"> </script>
+<script type="text/javascript" src="js/tradeoffscript.js"> </script>
+<script type="text/javascript">
+
+function s3()
+
+         {
+        	console.log('u r in me');
+		 $.ajax({
+ 		 url: 'http://localhost:2311/Advertisement',
+  			dataType: 'jsonp',
+  			jsonpCallback: 'jsonCallback',
+  			type:'GET'
+
+			});
+		}
+
+$(document).ready(function(){s3();});
+
+
+function s2(pn)
+
+         {
+        	console.log('u r in me');
+		 $.ajax({
+ 		 url: 'http://localhost:2311/postedAds'+'/'+$('pn').val(),
+  			dataType: 'jsonp',
+  			jsonpCallback: 'popup',
+  			type:'GET'
+
+			});
+		}
+function jsonCallback(data)
+{
+
+	console.log(data);
+       for(var i=0;i<data.x.length;i++){
+       item = data.x[i];
+       var pn = item.pn;
+       var price =item.price ;
+       var img1=item.img1;
+     	var str='<div onclick="s2(\''+pn+'\');" style="margin:10% 0 0 0% ;width:20%;"><a href="dummy.html"><img height=80px src="images/'+img1+'thumb.jpg'+'"<h3>'+pn+'</h3></a></div>';
+        $('#content').append(str);
+        }
+
+    }
+			function popup(data){console.log('succesfully loaded');}
+
+		
+function s1(){
+	console.log('u r in me');
+	$.ajax({
+  url: 'http://localhost:2311/TradeOff'+'/'+$('#PN').val()+'/'+$('#Price').val()+'/'+$('#Desc').val()+'/'+$('#Category').val(),
+  dataType: 'jsonp',
+  jsonpCallback: 'jsonCallback',
+  type:'GET'
+});
+	}
+function popup(data){alert('succesfully posted');}
+</script>
+
+<style type="text/css">
+body
+{
+	background-image: url("images/shopping_cart.jpeg");
+	background-repeat: no-repeat center center fixed;
+	background-size: 95%;
+
+}
+
+	 #post
+	 {
+
+	 	margin-left: auto;
+	  	font-size: 1.0rem;
+  		padding: 1rem 2rem;
+  		display: block;
+ 	 	background-color: #009ac9;
+  		border: 1px solid transparent;
+	    color: #ffffff;
+	    font-weight: 100;
+        -webkit-border-radius: 3px;
+  		border-radius: 3px;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+	 }
+	 #post:hover {	background-color: lightblue;
+  						color: #009ac9;
+  						border-color: #009ac9;}
+
+  	.stylie
+  	{
+
+	  	font-size: 1.0rem;
+  		padding: 0.5rem 1rem;
+ 	 	background-color: #009ac9;
+  		border: 1px solid transparent;
+	    color: #ffffff;
+
+
+  	}
+  	.stylie:hover {	background-color: lightblue;
+  						color: #009ac9;
+  						border-color: #009ac9;}
+
+#whole
+	 {
+
+	 	width:100%;
+	 	height: 100%;
+	 	display: none;
+	 	z-index: 100;
+	 	opacity: 1;
+	 	position: fixed;
+	 	left: 0;
+	 	bottom: 0;
+	 	top: 0;
+
+	 	background-color: rgb(0,0,0);
+	 	background-color: rgba(0,0,0,0.7);
+	 	-webkit-animation-name:fadeIn;
+	 	-webkit-animation-duration:0.4s;
+	 	animation-name:fadeIn;
+	 	animation-duration:0.4s;
+}
+#whole-content
+{
+	width:100%;
+	 	height: 100%;
+}
+#total
+{
+
+	border-width:5px;
+    border-color: #C12F2F;
+    background-color: white;
+    border-style:groove;
+	-webkit-animation-name:SlideIn;
+	-webkit-animation-duration:0.4s;
+	animation-name:SlideIn;
+	animation-duration:0.4s;
+	opacity:0.8;
+	margin:8% 25% 0px 30% ;
+
+}
+@-webkit-keyframes SlideIn{
+	from{
+			top:300px;opacity: 0;
+		}
+	to
+	{
+		top:0;opacity:1;
+	}
+}
+@keyframes SlideIn{
+	from{
+			top:300px;opacity: 0;
+		}
+	to
+	{
+		top:0;opacity:1;
+	}
+ }
+.stylie
+{
+	margin: 0 10px 2px 25px;
+
+}
+</style>
+
+</head>
+<body>
+<h1 style="text-align:center;background: white;opacity:0.9"> Welcome TO VIT<br> Trade Off</h1>
+<div  >
+<button id="post">
+Post Your Ad
+</button>
+</div>
+<div id="whole">
+<div id="total">
+<form action="http://localhost:2311/adpost/" method="POST" enctype="multipart/form-data">
+<div>
+<span >   Product Name    </span>
+<input id='PN' type="text" name="pname"><img onclick="$('#whole').hide();" style="float:right; margin:10px;" src="images/close_256.png">
+</div>
+
+<div>
+<span >   Price(INR)      </span> <input type="text" name="price">
+</div>
+
+<div>
+<span>   Category        </span><input id='Category' id='Price' type="text" name="category">
+</div>
+
+<div>
+<span  style="vertical-align:center">   Description       </span><textarea id='Desc' style="height:200px;width:450px;"></textarea>
+</div>
+
+<div >Image &emsp;<input id='img1' type=file name="avatar">  </input></div>
+
+
+<div><input type="submit" onclick=s1(); class="stylie"><input type="reset" class="stylie">
+</div>
+</form>
+</div>
+</div>
+
+</div>
+<div id='content' style="display:flex;background: white;opacity:0.9">
+<h2 style="margin-left:20%;"><b>Trending&nbsp;Now</b></h2>
+</div>
+
+</body>
+
+</html>

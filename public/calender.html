@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calender</title>
+<link rel='stylesheet' href='css/bootstrap.css' />
+<link rel='stylesheet' href='css/fullcalendar.min.css' />
+<script src='js/jquery.min.js'></script>
+<script src='js/moment.min.js'></script>
+<script src='js/fullcalendar.min.js'></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+
+    // page is now ready, initialize the calendar...
+    getdata();
+
+});
+
+
+function getdata(){
+    $.ajax({
+  url: "http://localhost:2311/getcaldata",
+  dataType: "jsonp",
+  jsonpCallback: 'pop',
+  type:'GET'
+});
+}
+
+function pop(data){
+    data.header={left : 'prev,next today',center : 'title',right : 'month,basicWeek,basicDay'};
+     $('#calendar').fullCalendar(data);
+}
+</script>
+<style type="text/css">
+.cont{
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 5%;
+    background: #EEEEEE;
+}
+</style>
+</head>
+<body>
+<div class="cont">
+<div id='calendar'></div>
+</div>
+</body>
+</html>

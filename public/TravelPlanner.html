@@ -1,0 +1,298 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" href="css/jquery-ui.css">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+ <script type="text/javascript" src="js/jquery-ui.js"></script>
+ <script>
+  $( function() {
+    $( ".datepicker" ).datepicker();
+  } );
+$(document).ready(function(){
+    $("#sch").click(function(){
+        $("#adddetails_div").hide();
+    });
+    $("#apl").click(function(){
+        $("#pplgoing_div").hide();
+    });
+    $("#apl").click(function(){
+        $("#adddetails_div").show();
+        $(".modal").show();
+    });
+    $(".Upper_Lower_div").click(function(){
+        $("#pplgoing_div").hide();
+    });
+    $(".Upper_Lower_div").click(function(){
+        $("#adddetails_div").hide();
+        $(".modal").hide();
+    });
+    $(".firstmiddle_div").click(function(){
+        $("#pplgoing_div").hide();
+    });
+    $(".firstmiddle_div").click(function(){
+        $("#adddetails_div").hide();
+        $(".modal").hide();
+    });
+
+});
+function datechecker()
+{
+  if ($( "#date1" ).datepicker( "getDate" )==null)
+  {
+   alert("please enter a valid date");
+     document.getElementById('pplgoing_div').style.display='none';
+     return false;
+  }
+  else
+  document.getElementById('pplgoing_div').style.display='block';
+return true;
+}
+function formvalid()
+{
+var dt=(new Date($( "#date2" ).datepicker( "getDate" ))).toISOString().substring(0,10);
+var fr=$('#adfr :selected').val();
+var to=$('#adto :selected').val();
+var des=$('#des').val();
+  if ( dt==null || fr==to)
+  {
+   alert("please check the details!");
+   return false;
+  }
+  else {
+  $.ajax({
+  url: "http://localhost:2311/tpa/"+dt+"/"+ fr+"/"+ to+"/"+des,
+  dataType: "jsonp",
+  jsonpCallback: 'suc',
+  type:'GET'
+});
+   console.log('sending!')
+  }
+}
+function suc(data){
+  console.log(data);
+if(data.ans)alert('added Succefully!');
+else alert("Some error Occured!");
+}
+
+
+function searched(){
+  if(datechecker())
+  {
+    var dt=(new Date($( "#date1" ).datepicker( "getDate" ))).toISOString().substring(0,10);
+  $.ajax({
+  url: "http://localhost:2311/tps/"+dt+"/"+ $('#sefr :selected').val()+"/"+ $('#seto :selected').val(),
+  dataType: "jsonp",
+  jsonpCallback: 'pop',
+  type:'GET'
+});
+  }
+
+}
+
+function pop(data){
+  var str="";
+  console.log(data);
+for(var i=0;i<data.people.length;i++){
+str+="<div ><li><b>"+data.people[i].name+"   </b>"+data.people[i].mail+"</li></div>"
+}
+$('#theaddlist').html(str);
+}
+  </script>
+  <style>
+    .modal{
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100000; /* Sit on top */
+    left: 0;
+    top: 0;
+    bottom: 0; /* Full height */ /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+    .button_style{
+  padding: 10px 5px;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+  outfirstmiddle_div: none;
+  color: #fff;
+  background-color:#A52A2A;
+  border: none;
+  border-radius: 95px;
+  box-shadow: 3px 4px #DEB887;
+}
+
+.button_style:hover {background-color: orange;}
+
+.button_style:active {
+  background-color: red;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+  .firstmiddle_div
+  {
+        position:relative;
+        margin-top:5px;
+
+        text-align:center;
+        font-size:20px;
+        background-color:#DEB887;
+        border-radius:20%;
+        z-index:0;
+  }
+  #Addplan_div
+  {
+    position:relative;
+    background-color:#DEB887;
+    float:left;
+    width:50%;
+    margin-top:-15px;
+    text-align:center;
+      z-index:1;
+      border-radius:30%;
+
+  }
+   #Search_div
+  {
+    position:relative;
+    background-color:#DEB887;
+    float:right;
+    width:48%;
+   text-align:center;
+    margin-top:-15px;
+    border-radius:30%;
+
+  }
+  #adddetails_div
+{
+  width:60%;
+  margin-top:12%;
+	-webkit-animation-name:SlideIn;
+	-webkit-animation-duration:1s;
+	animation-name:SlideIn;
+	animation-duration:1s;
+	margin-left:auto;
+  margin-right:auto; background-color:#DEB887;
+	display: none;
+  border-radius:10%;
+  font-size:20px;
+}
+@-webkit-keyframes SlideIn{
+	from{
+			top:0px;opacity: 0;
+		}
+	to
+	{
+		  top:20%;
+      left:35%;
+      opacity:1;
+	}
+}
+@keyframes SlideIn{
+	from{
+			top:0px;opacity: 0;
+		}
+	to
+	{
+		  top:20%;
+      left:35%;
+      opacity:1;
+	}
+ }
+  #pplgoing_div
+{
+	-webkit-animation-name:SlideIn;
+	-webkit-animation-duration:1s;
+	animation-name:SlideIn;
+	animation-duration:1s;
+  margin-right:15%;  margin-top:10px; float:right; width:50%;
+	display: none;
+}
+@-webkit-keyframes SlideIn{
+	from{
+			top:50px;opacity: 0;
+		}
+	to
+	{
+		top:80px;opacity:1;
+	}
+}
+@keyframes SlideIn{
+	from{
+			top:50px;opacity: 0;
+		}
+	to
+	{
+		top:80px;opacity:1;
+	}
+ }
+</style>
+</head>
+<body bgcolor="	#A0522D">
+<h1 style="text-align:center;background: white;opacity:0.9"> Welcome TO VIT<br> Travel Planner</h1>
+<div class="Upper_Lower_div" style="width=100%; height:170px;background-color:#CD853F; margin-top:-14px; margin-left:-5px;margin-right:-5px;"></div>
+
+<div class="firstmiddle_div">
+<b>From</b><select id="sefr" style="width=10%;height=20%;">
+<option>Vellore</option>
+<option>Chennai</option>
+<option>Delhi</option>
+<option>Mumbai</option>
+<option>Kolkata</option>
+<option>Jaipur</option>
+</select>
+<b>To</b><select id="seto">
+<option>Chennai</option>
+<option>Delhi</option>
+<option>Mumbai</option>
+<option>Jaipur</option>
+<option>Kolkata</option>
+</select>
+<p style="margin-top:5%;"><b>Date:</b> <input type="text" id="date1" class="datepicker"></p>
+</div>
+<div id="Search_div">
+      <button class="button_style" id="sch" onclick="searched()"><b>Search</b></button>
+</div>
+  <div id="Addplan_div">
+          <button class="button_style" id="apl" ><b>Add Plan</b></button>
+</div>
+<div id="pplgoing_div" style="display:none;">
+<p style="background-color:#DEB887;"><div style="width:100% ; background-color:#DEB887;"><b style="margin-left:25%;">These are the people that will be going on this date</b></div></p>
+<ol style="background-color:#DEB887;" id="theaddlist">
+</ol>
+</div>
+<div class="modal">
+<div id="adddetails_div">
+<form ">
+  <button style="float:right;margin:15px 15px 10px 10px;background-color:red;" onclick="$('adddetails_div').hide()"><b>x</b></button>
+<b style="margin-left:40%;">From</b><select id="adfr">
+<option>Vellore</option>
+<option>Chennai</option>
+<option>Delhi</option>
+<option>Mumbai</option>
+<option>Kolkata</option>
+<option>Jaipur</option>
+</select>
+<b > To</b><select id="adto">
+<option>Chennai</option>
+<option>Delhi</option>
+<option>Mumbai</option>
+<option>Jaipur</option>
+<option>Kolkata</option>
+</select>
+<p style= "margin-top:3%; margin-left:40%;"><b>Date:</b> <input type="text" id="date2" class="datepicker"></p>
+<div style="text-align:center; margin-bottom:0px;">  <textarea id="des" style="height:100px;border:1px dashed black; width:95%; background-color:#DEB887; text-align:center; ">Please describe your travel plan briefly.Also please provide your phone number</textarea> </div>
+<button  class="button_style"  style="margin-left:45%; margin-top:50px;" onclick="return formvalid()"><b>Submit</b></button>
+</form>
+</div>
+</div>
+  <div class="Upper_Lower_div" style="width=100%; height:385px;background-color:#CD853F;margin-left:-5px;margin-right:-5px; margin-bottom:-13px;" ></div>
+</body>
+</html>

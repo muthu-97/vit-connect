@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+	<head>
+		<title>PRS</title>
+		<style>
+			body{
+			background-color:#39c6a3;
+			}
+			h1,h2,h3{
+				font-family:cursive;
+
+			}
+			div{
+				border:2px solid black;
+			}
+			a{
+				text-decoration:none;
+			}
+			a:hover{
+				background-color:yellow;
+			}
+			.stylie
+    {
+
+        font-size: 1.0rem;
+        padding: 0.5rem 1rem;
+        background-color: #009ac9;
+        margin: 10px;
+        border: 1px solid transparent;
+        color: #ffffff;
+        width: 100px;
+        height: 40px    }
+    .stylie:hover { background-color: lightblue;
+                        color: #009ac9;
+                        border-color: #009ac9;}
+                        .modal{
+                        	border: 0;
+    width: 100%;
+    height: 100%;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 100000; /* Sit on top */
+    left: 0;
+    top: 0;
+    bottom: 0; /* Full height */ /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    -webkit-animation-name: fadeIn; /* Fade in the background */
+    -webkit-animation-duration: 0.4s;
+    animation-name: fadeIn;
+    animation-duration: 0.4s
+}
+.modal-content {
+    width:100%;
+    height:50%;
+    position: fixed;
+    bottom: 0;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fefefe;
+    overflow:fixed;
+    -webkit-animation-name: slideIn;
+    -webkit-animation-duration: 0.4s;
+    animation-name: slideIn;
+    animation-duration: 0.4s
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+	border: 0;
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {padding: 2px 16px;height:85%; overflow: scroll}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+    border: 0;
+}
+
+/* Add Animation */
+@-webkit-keyframes slideIn {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@keyframes slideIn
+ {
+    from {bottom: -300px; opacity: 0}
+    to {bottom: 0; opacity: 1}
+}
+
+@-webkit-keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0}
+    to {opacity: 1}
+}
+.banner
+{ margin:5%;height:550px;border: black thick;align-items:center;align-self: center;display: block;
+ position: relative; overflow: hidden; }
+.banner li { list-style: none; }
+.banner ul li { float: left; }
+.grid div{
+    display: block;
+}
+		</style>
+
+		<script type="text/javascript" src = "js/jquery.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function(){
+			populate();
+			$(".close").click(function(){$('#postq').hide();});
+			$('.post').click(function(){$('#postq').show()});
+});
+
+function sendIt(){
+    var q =$('#Q').val();
+    var cat = $('#cat').val();
+
+    $.ajax({
+  url: "http://localhost:2311/postq/"+q+'/'+cat,
+  dataType: "jsonp",
+  jsonpCallback: 'updated',
+  type:'GET'
+
+});
+  }
+  function updated(data){
+    if(data.ans){
+        alert("succesfully posted");
+        location.reload();
+    }
+    else{
+        alert("oops! something went wrong! Try again");
+        location.reload();
+    }
+
+  }
+  function populate(){
+    $.ajax({
+  url: "http://localhost:2311/getq/",
+  dataType: "jsonp",
+  jsonpCallback: 'pop',
+  type:'GET' });
+    	$.ajax({
+  url: "http://localhost:2311/makeinactive/",
+  dataType: "jsonp",
+  jsonpCallback: 'gdjdf',
+  type:'GET'
+
+});
+  }
+  function s1(q){
+  	$.ajax({
+  url: "http://localhost:2311/makeactive/"+q+'/',
+  dataType: "jsonp",
+  jsonpCallback: 'gdjdf',
+  type:'GET'
+});
+
+  }
+  function pop(data){
+  	var str="";
+  	for(var i=0;i<data.q.length;i++){
+  		str+='<div	 style="width:70%; margin-left:auto; margin-right:auto; padding:0px 5px 2px 5px; background-color:#DDDDDD"><a onclick="s1(\''+data.q[i].ques+'\');" href="prsa.html"><h1><span style="color:red">Question '+ (i+1)+'</span></h><p>'+data.q[i].ques+'?</p><p style="font-size :20px;">Asked under:<span style="font-size:20px;background-color:white;">'+data.q[i].cat+'</span></p></a></div><br><br>'
+  	}
+  	$('#mainc').html(str);
+  }
+
+		</script>
+	</head>
+	<body>
+		<h1><marquee>Questions For Reference</marquee></h1>
+
+<div id="mainc"></div>
+
+	<div class="post" style="float:right;margin: 20px" >
+    <button id="postit">Post a new Event</button>
+</body>
+	</body>
+</html>
+
+
+
+<div class="modal" id="postq">
+<div class="modal-content ac">
+<div class="modal-header">
+  <div class="close" id ="closeit">&times</div>
+  <h2>Ask your Question</h2>
+</div>
+<div class = "modal-body">
+
+<span style="vertical-align:center;position: relative;bottom:100px">   Your Question      </span><textarea style="margin-left:25px;height:80px;width:400px;margin-bottom:25px;" id="Q"></textarea>
+
+
+
+<span>Category</span> <input type="text" id="cat" style="margin-bottom:25px;">
+
+
+<button class="stylie" onclick="sendIt()">Post!</button>
+
+
+</div>
+</div>
+</div>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/jquery.elevateZoom-3.0.8.min.js"></script>
+<script type="text/javascript">
+  function s3()
+
+         {
+          console.log('u r in me');
+     $.ajax({
+     url: 'http://localhost:2311/Advertisement',
+        dataType: 'jsonp',
+        jsonpCallback: 'jsonCallback',
+        type:'GET'
+
+      });
+    }
+
+$(document).ready(function(){s3();});
+
+</script>
+</style>
+<style type="text/css">
+body
+{
+	background-image: url("images/shopping_cart.jpeg");
+	background-repeat: no-repeat center center fixed;
+	background-size: 95%;
+
+}
+#gal1 img{
+	height: 80px;
+
+}
+p {
+  font-family: "Trebuchet MS", Verdana, sans-serif;
+  color:#000000
+}
+	</style>
+
+
+<script type="text/javascript">//initiate the plugin and pass the id of the div containing gallery images
+$(document).ready(function () {
+
+$("#img_01").elevateZoom({gallery:'gal1', cursor: 'pointer', galleryActiveClass: 'active', imageCrossfade: true});
+
+//pass the images to Fancybox
+$("#img_01").bind("click", function(e) {
+  var ez =   $('#img_01').data('elevateZoom');
+	$.fancybox(ez.getGalleryList());
+  return false;
+});
+});</script>
+<style>
+/*set a border on the images to prevent shifting*/
+ #gal1 img{border:2px solid white;}
+
+ /*Change the colour*/
+ .active img{border:2px solid #333 !important;}
+});
+</style>
+</head>
+<body>
+
+<div >
+<div  style="display:flex;margin-left:5%;" >
+<div style="width:30%;">
+<img id="img_01" src="images/mi5/mi5_1.jpg" style="margin-top:5%;" data-zoom-image="images/mi5/mi5_1_enl.jpg" class="active" />
+
+<div id="gal1" style="margin-top:20%;background: white;opacity:0.8" >
+ <a href="#" data-image="images/mi5/mi5_1.jpg" data-zoom-image="images/mi5/mi5_1_enl.jpg">
+    <img  src="images/mi5/mi5_1_thumb.jpg" />
+  </a>
+  <a href="#" data-image="images/mi5/mi5_2.jpg" data-zoom-image="images/mi5/mi5_2_enl.jpg">
+    <img  src="images/mi5/mi5_2_thumb.jpg" />
+  </a>
+
+  <a href="#" data-image="images/mi5/mi5_3.jpg" data-zoom-image="images/mi5/mi5_3_(enl).jpg">
+    <img  src="images/mi5/mi5_3_thumb.jpg" />
+  </a>
+  </div>
+</div>
+<div style="width:30%;background: white;opacity:0.8;">
+<p><h1 >   Redmi mi Note 3</h1></p>
+<p><h2 >   Price(INR)     :&#8377;7000	</h2>
+<p><h2 >   Category       : Mobile</h2>
+<p><h2>   Description      </h2></p>
+<p >3GB + 32GB
+Snapdragon 650, 64-bit hexa-core 1.8GHz<br>
+Adreno 510<br>
+3GB dual-channel LPDDR3 RAM<br>
+32GB eMMC 5.0 Flash<br>
+4000mAh / 4050(typ)<br>
+0.3s fingerprint unlocking<br>
+4G hybrid dual SIM, up to 32GB microSD support</p></div>
+</div>
+</div>
+</body>
+</html>

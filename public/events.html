@@ -1,0 +1,95 @@
+<!DocType html>
+<html>
+<head>
+    <title>Events</title>
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="css/unslider.css">
+    <link rel="stylesheet" type="text/css" href="css/unslider-dots.css">
+    <link rel="stylesheet" type="text/css" href="css/events.css">
+    <script type="text/javascript" src = "js/jquery.min.js"></script>
+    <script type="text/javascript" src = "js/unslider-min.js"></script>
+    <script type="text/javascript" src = "js/events.js"></script>
+  <script>
+window.onclick = function(event) {
+    if (event.target == document.getElementById("myModal")) {
+        modal.style.display = "none";
+    }
+}
+    </script>
+</head>
+<body style="background:white">
+
+<div class="banner ac">
+<ul>
+    <li><img src="images/img1.jpg"></li>
+    <li><img src="images/img2.jpg"></li>
+    <li><img src="images/img3.jpg"></li>
+</ul>
+</div>
+
+<div >
+<table class='col-10 ac' id='content' >
+</table>
+</div>
+
+<div id="myModal" class="modal" >
+ <!-- Modal content -->
+  <div class="modal-content ac">
+    <div class="modal-header">
+      <span class="close" id="closei">&times</span>
+      <h2>About the Event</h2>
+    </div>
+    <div class="modal-body">
+      <img id='imageee' src="images/img2.jpg" >
+      <div style="height:40px;display:flex">
+      <h3 class="col-10" id='tit'></h3>
+      <h4 class="col-2" id='timee'></h4></div>
+      <div>
+      <p style="padding:20px" id='descee'></p>
+      </div>
+      </div>
+  </div>
+</div>
+<div class="post" style="float:right;margin: 20px" >
+    <button id="postit">Post a new Event</button>
+</body>
+</html>
+
+
+
+<div class="modal" id="postadd">
+<div class="modal-content ac">
+<div class="modal-header">
+  <span class="close" id ="closeit">&times</span>
+  <h2>Add your Event</h2>
+</div>
+<div class = "modal-body">
+<div>
+<span>Name of Event</span>
+<input type="text" id="ename" style="margin-bottom:25px;">
+</div>
+
+<div>
+<span>Date of Event</span> <input type="text" id="dt" style="margin-bottom:25px;">
+</div>
+
+<div>
+<span>Time of Event      </span><input type="text" id="tm" style="margin-bottom:25px;">
+</div>
+
+<div>
+<span>Venue of Event      </span><input type="text" id="ven" style="margin-bottom:25px;">
+</div>
+
+<div>
+<span style="vertical-align:center;position: relative;bottom:100px">   Description       </span><textarea style="margin-left:25px;height:200px;width:400px;margin-bottom:25px;" id="des"></textarea>
+</div>
+
+<div id="img1"><span>Event Image link     </span><input type="text"  id="image" style="margin-bottom:25px;"></div>
+
+<div><button class="stylie" onclick="sendIt()">Post!</button>
+</div>
+
+</div>
+</div>
+</div>

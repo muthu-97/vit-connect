@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html class="gr__materializecss_com" style="height:99%" idmmzcc-ext-docid="516995072" lang="en">
+<head>
+
+    <title>SideNav - Materialize</title>
+
+    <link rel="icon" href="http://materializecss.com/images/favicon/favicon-32x32.png" sizes="32x32">
+    <!-- CSS-->
+    <link href="SideNav-Materialize_files/prism.css" rel="stylesheet">
+    <link href="SideNav-Materialize_files/ghpages-materialize.css" type="text/css" rel="stylesheet" media="screen,projection">
+    <link href="SideNav-Materialize_files/css.css" rel="stylesheet" type="text/css">
+    <link href="SideNav-Materialize_files/icon.css" rel="stylesheet">
+       <script src='js/jquery.min.js'></script>
+   <script>
+      window.liveSettings = {
+        api_key: "a0b49b34b93844c38eaee15690d86413",
+        picker: "bottom-right",
+        detectlang: true,
+        dynamic: true,
+        autocollect: true
+      };
+$(document).ready(function(){
+      alert('hello1');
+      $.ajax({
+  url: "http://localhost:2311/getuser",
+  dataType: "jsonp",
+  jsonpCallback: 'backcall',
+  type:'GET'
+});
+    });
+      function backcall(data){
+        alert('hello2');
+        if(data){
+            $('#NAME').html(data.name);
+            $('#EMAIL').html(data.mail);
+        }
+
+      }
+
+    </script>
+
+
+    <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons">menu</i>
+    </a>
+    <ul>
+      <li><a class="btn-floating red" onclick="$('#frame').attr('src','TravelPlanner.html');"><i class="material-icons" title="Travel Planner">my_location</i></a></li>
+      <li><a class="btn-floating yellow darken-1" onclick="$('#frame').attr('src','tradeoff.html');"><i class="material-icons" title="Trade">shopping_cart</i></a></li>
+      <li><a class="btn-floating green"><i class="material-icons" title="Calendar" onclick="$('#frame').attr('src','calender.html');">today</i></a></li>
+      <li><a class="btn-floating blue" onclick="$('#frame').attr('src','prs.html');"><i class="material-icons" title="PRS">perm_identity</i></a></li>
+    </ul>
+  </div>
+
+</head>
+  <body style="height: 100%" data-gr-c-s-loaded="true">
+
+
+
+  <div class="fixed-action-btn horizontal click-to-toggle" style="bottom: 45px; right: 24px;z-index: 1">
+
+        <a href="#" data-activates="slide-out" class="button-collapse"></a></div>
+
+        <ul style="transform: translateX(-100%);" id="slide-out" class="side-nav">
+          <li><div class="userView">
+            <img class="background" src="Images/office.jpg">
+            <a href="#%21user"><img class="circle" src="Images/yuna.jpg"></a>
+            <a href="#%21name"><span class="white-text name" id="NAME">A Roopesh M</span></a>
+            <a href="#%21email"><span class="white-text email" id="EMAIL">aroopesh@gmail.com</span></a>
+          </div></li>
+
+          <li><div class="divider"></div></li>
+
+          <li><a class="waves-effect waves-red" href="login.html">LogOut</a></li>
+        </ul>
+<div style="display: flex;height: 100%">
+<div style="width:2%;height:100% z-index:1;background-color: #E0E0E0" >
+    <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+</div>
+<div style="top:0;bottom:0;width:98%;height:100%;z-index: 0">
+<iframe src="events.html" id="frame" style="top:0;bottom:0;width:100%;height:100%;""></iframe>
+
+</div>
+</div>
+
+    <script src="SideNav-Materialize_files/jquery-2.js"></script>
+    <script>if (!window.jQuery) { document.write('<script src="bin/jquery-2.1.1.min.js"><\/script>'); }
+    </script>
+    <script src="js/jquery.min.js"></script>
+    <script src="SideNav-Materialize_files/prism.js"></script>
+    <script src="SideNav-Materialize_files/lunr.js"></script>
+    <script src="SideNav-Materialize_files/search.js"></script>
+    <script src="SideNav-Materialize_files/materialize.js"></script>
+    <script src="SideNav-Materialize_files/init.js"></script>
+
+
+</body></html>
