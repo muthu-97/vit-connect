@@ -3,12 +3,18 @@ var app = express();
 var assert = require('assert');
 var MongoClient = require('mongodb').MongoClient;
 var path=require('path');
-app.use(express.static(path.join(__dirname,'public')))
+app.use(express.static('public'));
 app.listen(2311);
 
-app.get('/',function(req,res){
-	res.sendFile(path.join(__dirname,'public','main.htm'));
-})
+app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname + '/public/main.htm'));
+});
+app.get('/:n1/:n2', function(req, res) {
+    res.sendFile(path.join(__dirname + '/'+req.params.n1 +'/'+req.params.n2));
+});
+app.get('/:n1/:n2/:n3', function(req, res) {
+    res.sendFile(path.join(__dirname + '/'+req.params.n1 +'/'+req.params.n2+'/'+req.params.n3));
+});
 //signup
 app.get('/signup/:id/:name/:mail/:pass' , function(req,res){
   var x={};
